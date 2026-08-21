@@ -8,16 +8,16 @@ import { siteUrl } from '@/lib/env'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: 'Voice2BRD — conversations become executed outcomes',
-    template: '%s — Voice2BRD',
+    default: 'Vowcraft — conversations become executed outcomes',
+    template: '%s — Vowcraft',
   },
   description:
-    'Voice2BRD transcribes your meetings, extracts what was actually committed to, and executes it in ' +
+    'Vowcraft transcribes your meetings, extracts what was actually committed to, and executes it in ' +
     'Calendar, Notion, Gmail and Slack — but only after you approve, and always on the record.',
   openGraph: {
     type: 'website',
-    siteName: 'Voice2BRD',
-    title: 'Voice2BRD — conversations become executed outcomes',
+    siteName: 'Vowcraft',
+    title: 'Vowcraft — conversations become executed outcomes',
     description:
       'Grounded action-item extraction, seventeen server-side guardrails, and an append-only audit trail. ' +
       'The agent proposes; you decide.',

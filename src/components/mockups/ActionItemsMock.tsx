@@ -98,7 +98,7 @@ const RISK_TONE = { 'Low risk': 'success', 'Medium risk': 'warn', 'High risk': '
 
 export function ActionItemsMock({ className }: { className?: string }) {
   return (
-    <AppFrame label="voice2brd.app/dashboard/action-items" className={className}>
+    <AppFrame label="vowcraft.app/dashboard/action-items" className={className} activeLabel="Action items">
       <MockModeBanner />
 
       <div className="p-3 sm:p-4">

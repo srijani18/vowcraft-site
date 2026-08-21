@@ -27,7 +27,7 @@ const FUNNEL = [
 
 export function OverviewMock({ className }: { className?: string }) {
   return (
-    <AppFrame label="voice2brd.app/dashboard" className={className}>
+    <AppFrame label="vowcraft.app/dashboard/overview" className={className} activeLabel="Analytics overview">
       <MockModeBanner />
       <div className="p-3 sm:p-4">
         <p className="text-[13px] font-semibold tracking-tight">Welcome back, Srijani</p>

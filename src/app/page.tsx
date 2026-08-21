@@ -35,7 +35,7 @@ export default function HomePage() {
             </h1>
 
             <p className="display-sub mx-auto mt-6 max-w-2xl text-base text-ink-muted sm:text-lg">
-              Voice2BRD listens, works out what your team actually committed to, and turns it into
+              Vowcraft listens, works out what your team actually committed to, and turns it into
               calendar invites, tasks and drafts — each one traced back to the sentence that produced
               it, and none of it sent until you say so.
             </p>

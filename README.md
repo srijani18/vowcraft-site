@@ -1,6 +1,6 @@
-# Voice2BRD — marketing site
+# Vowcraft — marketing site
 
-The public site for [Voice2BRD](../voice2brd): landing page, features, pricing, docs,
+The public site for [Vowcraft](../vowcraft): landing page, features, pricing, docs,
 security, and contact. Independent of the application — separate repo, separate
 deploy, no shared database and no shared build.
 

@@ -8,7 +8,7 @@ const COLUMNS = [
       { href: '/features', label: 'Features' },
       { href: '/pricing', label: 'Pricing' },
       { href: '/security', label: 'Security' },
-      { href: '/features#roadmap', label: 'Roadmap' },
+      { href: '/features#latest', label: "What's new" },
     ],
   },
   {
@@ -41,7 +41,7 @@ export function Footer() {
               <span className="glow-accent grid size-8 place-items-center rounded-xl bg-accent-fill text-accent-on">
                 <i className="bi bi-soundwave text-base" aria-hidden />
               </span>
-              <span className="text-[15px] font-semibold tracking-tight">Voice2BRD</span>
+              <span className="text-[15px] font-semibold tracking-tight">Vowcraft</span>
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
               Conversations become approved, executed outcomes — with a record of every decision
@@ -75,7 +75,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-edge/20 pt-6 text-xs text-ink-faint">
-          <p>© {new Date().getFullYear()} Voice2BRD</p>
+          <p>© {new Date().getFullYear()} Vowcraft</p>
           <p className="flex items-center gap-1.5">
             <i className="bi bi-shield-check text-ok" aria-hidden />
             Mock mode by default — nothing executes until you approve it

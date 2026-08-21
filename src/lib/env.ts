@@ -6,20 +6,26 @@
  * destination is derived from it rather than hardcoded per link.
  */
 
-const DEFAULT_APP_URL = 'http://localhost:3000'
-
 function trimSlash(value: string): string {
   return value.replace(/\/+$/, '')
 }
 
+function requireEnv(name: string): string {
+  const value = process.env[name]
+  if (!value) {
+    throw new Error(`${name} is not set. Set it in the environment (see .env.example).`)
+  }
+  return value
+}
+
 export function appUrl(path = ''): string {
-  const base = trimSlash(process.env.NEXT_PUBLIC_APP_URL ?? DEFAULT_APP_URL)
+  const base = trimSlash(requireEnv('NEXT_PUBLIC_APP_URL'))
   if (!path) return base
   return `${base}${path.startsWith('/') ? path : `/${path}`}`
 }
 
 export function siteUrl(path = ''): string {
-  const base = trimSlash(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3001')
+  const base = trimSlash(requireEnv('NEXT_PUBLIC_SITE_URL'))
   return path ? `${base}${path.startsWith('/') ? path : `/${path}`}` : base
 }
 

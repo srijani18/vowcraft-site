@@ -5,7 +5,7 @@ import { Reveal } from '@/components/site/Reveal'
 import { Section, SectionHeading } from '@/components/site/Section'
 import { ActionItemsMock } from '@/components/mockups/ActionItemsMock'
 import { ExecuteMock } from '@/components/mockups/ExecuteMock'
-import { PILLARS, ROADMAP } from '@/lib/content'
+import { LATEST_FEATURES, PILLARS } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Features',
@@ -222,32 +222,32 @@ export default function FeaturesPage() {
         </Reveal>
       </Section>
 
-      {/* roadmap */}
-      <Section id="roadmap">
+      {/* latest features */}
+      <Section id="latest">
         <SectionHeading
-          eyebrow="Roadmap"
-          title="Specified, not yet shipped"
-          blurb="Listed because hiding unfinished work makes a product look smaller than it is. Each one already has its schema in place."
+          eyebrow="Just shipped"
+          title="Built on top of the same guardrails, not around them"
+          blurb="Four additions since the pillars above — each one still goes through the same approval and guardrail path as everything else, because none of that is optional."
         />
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-3">
-          {ROADMAP.map((item, i) => (
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          {LATEST_FEATURES.map((item, i) => (
             <Reveal key={item.slug} delay={i * 90}>
-              <div className="panel h-full rounded-2xl border-dashed p-5 opacity-90">
+              <div className="panel h-full rounded-2xl p-5">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="grid size-9 place-items-center rounded-xl bg-ink-faint/15 text-ink-faint">
+                  <span className="glow-accent grid size-9 place-items-center rounded-xl bg-accent-fill text-accent-on">
                     <i className={`bi ${item.icon}`} aria-hidden />
                   </span>
-                  <span className="rounded border border-edge/25 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-ink-faint">
-                    soon
+                  <span className="rounded border border-ok/40 bg-ok/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-ok">
+                    new
                   </span>
                 </div>
                 <h3 className="mt-3 text-sm font-semibold leading-snug">{item.title}</h3>
                 <p className="mt-1.5 text-xs leading-relaxed text-ink-muted">{item.body}</p>
                 <ul className="mt-3 space-y-1 border-t border-edge/20 pt-3">
                   {item.points.map((point) => (
-                    <li key={point} className="flex gap-2 text-[11px] text-ink-faint">
-                      <i className="bi bi-circle mt-0.5 shrink-0 text-[7px]" aria-hidden />
+                    <li key={point} className="flex gap-2 text-[11px] text-ink-muted">
+                      <i className="bi bi-check2 mt-0.5 shrink-0 text-ok" aria-hidden />
                       {point}
                     </li>
                   ))}

@@ -56,11 +56,11 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2.5" aria-label="Voice2BRD home">
+        <Link href="/" className="flex items-center gap-2.5" aria-label="Vowcraft home">
           <span className="glow-accent grid size-8 place-items-center rounded-xl bg-accent-fill text-accent-on">
             <i className="bi bi-soundwave text-base" aria-hidden />
           </span>
-          <span className="text-[15px] font-semibold tracking-tight">Voice2BRD</span>
+          <span className="text-[15px] font-semibold tracking-tight">Vowcraft</span>
         </Link>
 
         <nav className="ml-6 hidden items-center gap-1 lg:flex" aria-label="Main">

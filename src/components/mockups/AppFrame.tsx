@@ -18,12 +18,15 @@ export function AppFrame({
   label,
   className,
   sidebar = true,
+  activeLabel,
 }: {
   children: ReactNode
   /** Shown in the fake address bar. */
   label: string
   className?: string
   sidebar?: boolean
+  /** Which nav item to highlight — matched by label against the groups below. */
+  activeLabel?: string
 }) {
   return (
     <div
@@ -48,46 +51,61 @@ export function AppFrame({
       </div>
 
       <div className="flex">
-        {sidebar && <MockSidebar />}
+        {sidebar && <MockSidebar activeLabel={activeLabel} />}
         <div className="min-w-0 flex-1">{children}</div>
       </div>
     </div>
   )
 }
 
+/** Mirrors NAV_GROUPS in the app's own `src/lib/navigation.ts`, trimmed to one row per module. */
 const NAV = [
-  { group: 'Overview', items: [{ icon: 'bi-speedometer2', label: 'Dashboard' }] },
   {
-    group: 'Capture',
+    group: 'Voice & overview',
     items: [
-      { icon: 'bi-cloud-arrow-up', label: 'Upload' },
-      { icon: 'bi-file-earmark-text', label: 'Transcripts' },
+      { icon: 'bi-mic-fill', label: 'Voice to BRD' },
+      { icon: 'bi-file-earmark-text', label: 'Requirements documents' },
+      { icon: 'bi-speedometer2', label: 'Analytics overview' },
+    ],
+  },
+  {
+    group: 'Capture & transcribe',
+    items: [
+      { icon: 'bi-cloud-arrow-up', label: 'Recordings' },
+      { icon: 'bi-file-earmark-text', label: 'Transcript reader' },
+      { icon: 'bi-camera-video', label: 'Live meetings' },
     ],
   },
   {
     group: 'Understand',
     items: [
-      { icon: 'bi-list-check', label: 'Action items', active: true },
-      { icon: 'bi-lightbulb', label: 'Decisions' },
+      { icon: 'bi-list-check', label: 'Action items' },
+      { icon: 'bi-lightbulb', label: 'Decisions & summary' },
+      { icon: 'bi-search', label: 'Semantic search' },
     ],
   },
   {
-    group: 'Execute',
+    group: 'Execute & verify',
     items: [
       { icon: 'bi-plug', label: 'Integrations' },
       { icon: 'bi-journal-text', label: 'Audit log' },
+      { icon: 'bi-diagram-2', label: 'Multi-step workflows' },
     ],
+  },
+  {
+    group: 'Settings',
+    items: [{ icon: 'bi-toggles', label: 'Preferences' }],
   },
 ] as const
 
-function MockSidebar() {
+function MockSidebar({ activeLabel }: { activeLabel?: string }) {
   return (
     <div className="hidden w-40 shrink-0 border-r border-edge/20 py-3 sm:block">
       <div className="mb-3 flex items-center gap-2 px-3">
         <span className="glow-accent grid size-6 place-items-center rounded-lg bg-accent-fill text-accent-on">
           <i className="bi bi-soundwave text-[10px]" />
         </span>
-        <span className="text-[11px] font-semibold">Voice2BRD</span>
+        <span className="text-[11px] font-semibold">Vowcraft</span>
       </div>
 
       {NAV.map((section) => (
@@ -100,7 +118,7 @@ function MockSidebar() {
               key={item.label}
               className={clsx(
                 'flex items-center gap-2 rounded-lg px-1.5 py-1.5 text-[10px]',
-                'active' in item && item.active
+                item.label === activeLabel
                   ? 'bg-accent-fill/15 font-medium text-accent shadow-[inset_2px_0_0_0_rgb(var(--accent-fill))]'
                   : 'text-ink-muted',
               )}

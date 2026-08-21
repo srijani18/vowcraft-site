@@ -4,8 +4,9 @@
  * messaging without reading a component.
  *
  * Claims here are drawn from what the product actually does. Nothing below
- * describes a capability the application has not shipped; the roadmap section is
- * labelled as such.
+ * describes a capability the application has not shipped — including every entry
+ * in `LATEST_FEATURES`, which exists to spotlight what shipped recently, not to
+ * promise what is coming.
  */
 
 export interface Feature {
@@ -123,33 +124,72 @@ export const PILLARS: readonly Feature[] = [
   },
 ]
 
-export const ROADMAP: readonly Feature[] = [
+/**
+ * Shipped after the pillars above were first written — kept as a separate list rather
+ * than merged into `PILLARS` because they answer a different question. The pillars are
+ * the trust properties the product will not compromise on; these are capabilities built
+ * on top of that foundation. `shipped` still matters here: it is what lets one honest
+ * array serve both "what's new" (below) and, in the future, "what's next," without two
+ * sections silently drifting apart on which is which.
+ */
+export const LATEST_FEATURES: readonly Feature[] = [
   {
-    slug: 'live-capture',
-    icon: 'bi-camera-video',
-    title: 'Live Teams and Meet capture',
-    tagline: 'Coming next',
-    body: 'Streaming transcription with voice activity detection, so the action items land as the call ends.',
-    points: ['Streaming ASR over WebSocket', 'Voice activity detection', 'No manual start or stop'],
-    shipped: false,
+    slug: 'decisions-insights',
+    icon: 'bi-lightbulb',
+    title: 'Decisions & summary, searchable across every meeting',
+    tagline: 'New',
+    body:
+      'Every decision a meeting settled was already being extracted — it just had nowhere to be read. ' +
+      'Now it does: who decided what, when, with the exact quote and a link back to that moment.',
+    points: [
+      'Decisions from every meeting, not just the one you have open',
+      'Filterable by who decided and searchable by text',
+      'Recent meeting summaries alongside the decisions they came from',
+    ],
+    shipped: true,
   },
   {
     slug: 'semantic-search',
     icon: 'bi-search',
     title: 'Semantic search across every transcript',
-    tagline: 'Coming next',
+    tagline: 'New',
     body: '"What did they say about the budget?" finds the moment even when nobody used the word.',
-    points: ['pgvector over segment embeddings', 'Jump straight to the audio', 'Free embedding providers'],
-    shipped: false,
+    points: [
+      'Meaning-based retrieval, not keyword match',
+      'Jump straight to the moment in the recording',
+      'A free provider tier — no card required to try it',
+    ],
+    shipped: true,
   },
   {
     slug: 'workflows',
     icon: 'bi-diagram-2',
-    title: 'Multi-step workflows',
-    tagline: 'Coming next',
-    body: '"Onboard a new hire" fans out into ordered sub-tasks that halt on the first real failure.',
-    points: ['Dependency graph', 'Sequential or parallel', 'Progress per sub-task'],
-    shipped: false,
+    title: 'Run a whole chain of dependent actions in one go',
+    tagline: 'New',
+    body:
+      'An item that blocks others can now run itself and everything downstream — the exact chain the ' +
+      'dependency guardrail was already enforcing one step at a time.',
+    points: [
+      'Runs from any item that blocks others, in dependency order',
+      'Halts the whole run on the first real failure',
+      'Every step still re-checks its own approval and guardrails when it runs',
+    ],
+    shipped: true,
+  },
+  {
+    slug: 'live-capture',
+    icon: 'bi-camera-video',
+    title: 'Capture a live meeting from any browser tab',
+    tagline: 'New',
+    body:
+      'Share a tab with Meet, Teams, Zoom, or anything else running the call, and it streams into a ' +
+      'transcript as it happens — no bot joins your call, no vendor account required.',
+    points: [
+      'Works with any meeting tool open in a browser tab',
+      'Streams over the same live-transcription relay as voice capture',
+      'Lands as a normal recording — segments, and action items once extraction runs',
+    ],
+    shipped: true,
   },
 ]
 
@@ -350,7 +390,7 @@ export const DOCS: readonly Doc[] = [
         ],
         code: {
           language: 'bash',
-          content: 'git clone <your-fork> voice2brd\ncd voice2brd\ndocker compose up --build\n\n# → http://localhost:3000/dashboard',
+          content: 'git clone <your-fork> vowcraft\ncd vowcraft\ndocker compose up --build\n\n# → http://localhost:3000/dashboard',
         },
       },
       {
