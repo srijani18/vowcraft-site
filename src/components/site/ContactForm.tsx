@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /**
  * Contact form with inline, per-field errors.
@@ -165,18 +165,13 @@ export function ContactForm() {
         </Field>
 
         <Field id="contact-topic" label="What is this about?">
-          <select
+          <Select
             id="contact-topic"
             value={values.topic}
-            onChange={(e) => set('topic', e.target.value)}
+            onChange={(value) => set('topic', value)}
+            options={TOPICS}
             className={inputClass('topic')}
-          >
-            {TOPICS.map((topic) => (
-              <option key={topic.value} value={topic.value}>
-                {topic.label}
-              </option>
-            ))}
-          </select>
+          />
         </Field>
       </div>
 
@@ -262,6 +257,151 @@ function Field({
         </p>
       ) : (
         hint && <p className="mt-1.5 text-[11px] text-ink-faint">{hint}</p>
+      )}
+    </div>
+  )
+}
+
+/**
+ * A custom listbox rather than a native `<select>`. Browsers render the native
+ * control's popup with their own chrome regardless of CSS, so it never matches
+ * the rest of the form — this one is built from the same panel/border tokens as
+ * every other field.
+ */
+function Select<T extends string>({
+  id,
+  value,
+  onChange,
+  options,
+  className,
+}: {
+  id: string
+  value: T
+  onChange: (value: T) => void
+  options: ReadonlyArray<{ value: T; label: string }>
+  className?: string
+}) {
+  const [open, setOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(() => Math.max(0, options.findIndex((o) => o.value === value)))
+  const rootRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+
+  const selected = options.find((o) => o.value === value) ?? options[0]!
+
+  useEffect(() => {
+    if (!open) return
+    listRef.current?.focus()
+
+    function onPointerDown(event: MouseEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    return () => document.removeEventListener('mousedown', onPointerDown)
+  }, [open])
+
+  function openList() {
+    setActiveIndex(Math.max(0, options.findIndex((o) => o.value === value)))
+    setOpen(true)
+  }
+
+  function commit(index: number) {
+    const option = options[index]
+    if (!option) return
+    onChange(option.value)
+    setOpen(false)
+    buttonRef.current?.focus()
+  }
+
+  function onListKeyDown(event: React.KeyboardEvent) {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault()
+        setActiveIndex((i) => Math.min(i + 1, options.length - 1))
+        break
+      case 'ArrowUp':
+        event.preventDefault()
+        setActiveIndex((i) => Math.max(i - 1, 0))
+        break
+      case 'Home':
+        event.preventDefault()
+        setActiveIndex(0)
+        break
+      case 'End':
+        event.preventDefault()
+        setActiveIndex(options.length - 1)
+        break
+      case 'Enter':
+      case ' ':
+        event.preventDefault()
+        commit(activeIndex)
+        break
+      case 'Escape':
+      case 'Tab':
+        setOpen(false)
+        buttonRef.current?.focus()
+        break
+    }
+  }
+
+  return (
+    <div ref={rootRef} className="relative">
+      <button
+        ref={buttonRef}
+        id={id}
+        type="button"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={`${id}-listbox`}
+        onClick={() => (open ? setOpen(false) : openList())}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            openList()
+          } else if (event.key === 'ArrowUp') {
+            event.preventDefault()
+            setActiveIndex(options.length - 1)
+            setOpen(true)
+          }
+        }}
+        className={clsx(className, 'flex items-center justify-between gap-2 text-left')}
+      >
+        <span className="truncate">{selected.label}</span>
+        <i
+          className={clsx('bi bi-chevron-down shrink-0 text-[11px] text-ink-faint transition-transform', open && 'rotate-180')}
+          aria-hidden
+        />
+      </button>
+
+      {open && (
+        <ul
+          ref={listRef}
+          id={`${id}-listbox`}
+          role="listbox"
+          tabIndex={-1}
+          aria-activedescendant={`${id}-option-${activeIndex}`}
+          onKeyDown={onListKeyDown}
+          className="absolute z-20 mt-1.5 w-full overflow-hidden rounded-xl border border-edge/30 bg-surface-strong py-1 shadow-lg outline-none"
+        >
+          {options.map((option, index) => (
+            <li
+              key={option.value}
+              id={`${id}-option-${index}`}
+              role="option"
+              aria-selected={option.value === value}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => commit(index)}
+              className={clsx(
+                'flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-sm',
+                index === activeIndex ? 'bg-accent-fill/15 text-accent' : 'text-ink',
+              )}
+            >
+              {option.label}
+              {option.value === value && <i className="bi bi-check2 text-xs" aria-hidden />}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   )

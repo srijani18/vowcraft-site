@@ -10,22 +10,25 @@ function trimSlash(value: string): string {
   return value.replace(/\/+$/, '')
 }
 
-function requireEnv(name: string): string {
-  const value = process.env[name]
-  if (!value) {
-    throw new Error(`${name} is not set. Set it in the environment (see .env.example).`)
-  }
-  return value
-}
-
 export function appUrl(path = ''): string {
-  const base = trimSlash(requireEnv('NEXT_PUBLIC_APP_URL'))
+  // Static `process.env.NEXT_PUBLIC_*` access, required so Next.js can inline
+  // the value into the client bundle — a dynamic lookup would read `undefined`
+  // in the browser even when the variable is set.
+  const value = process.env.NEXT_PUBLIC_APP_URL
+  if (!value) {
+    throw new Error('NEXT_PUBLIC_APP_URL is not set. Set it in the environment (see .env.example).')
+  }
+  const base = trimSlash(value)
   if (!path) return base
   return `${base}${path.startsWith('/') ? path : `/${path}`}`
 }
 
 export function siteUrl(path = ''): string {
-  const base = trimSlash(requireEnv('NEXT_PUBLIC_SITE_URL'))
+  const value = process.env.NEXT_PUBLIC_SITE_URL
+  if (!value) {
+    throw new Error('NEXT_PUBLIC_SITE_URL is not set. Set it in the environment (see .env.example).')
+  }
+  const base = trimSlash(value)
   return path ? `${base}${path.startsWith('/') ? path : `/${path}`}` : base
 }
 
