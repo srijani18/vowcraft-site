@@ -57,7 +57,7 @@ export const PILLARS: readonly Feature[] = [
   {
     slug: 'guardrails',
     icon: 'bi-shield-check',
-    title: 'Seventeen guardrails that cannot be argued with',
+    title: 'Sixteen guardrails that cannot be argued with',
     tagline: 'Enforced on the server, every time.',
     body:
       'No weekend meetings. Nothing outside working hours. No double-booking. No deadline in the past. ' +
@@ -75,7 +75,7 @@ export const PILLARS: readonly Feature[] = [
     slug: 'execution',
     icon: 'bi-lightning-charge-fill',
     title: 'Real side effects, exactly once',
-    tagline: 'Calendar, Notion, Gmail, SendGrid, Slack.',
+    tagline: 'Calendar, Notion, and Gmail. SendGrid and Slack next.',
     body:
       'Approved actions become calendar invites, task pages, drafted or delivered email, and scheduled ' +
       'reminders. Bounded retries with full jitter, idempotency keyed on the payload, and a recorded ' +
@@ -221,12 +221,17 @@ export const HOW_IT_WORKS = [
   },
 ] as const
 
+/**
+ * `soon` marks an integration that is built but not switched on yet. Listing it without
+ * saying so would be the one thing the product's own copy promises never to do — claim a
+ * capability the application does not currently offer.
+ */
 export const INTEGRATIONS = [
   { name: 'Google Calendar', icon: 'bi-calendar-event' },
   { name: 'Notion', icon: 'bi-journal-richtext' },
   { name: 'Gmail', icon: 'bi-envelope' },
-  { name: 'SendGrid', icon: 'bi-send' },
-  { name: 'Slack', icon: 'bi-slack' },
+  { name: 'SendGrid', icon: 'bi-send', soon: true },
+  { name: 'Slack', icon: 'bi-slack', soon: true },
   { name: 'Whisper', icon: 'bi-soundwave' },
   { name: 'Groq', icon: 'bi-cpu' },
   { name: 'Gemini', icon: 'bi-stars' },
@@ -474,7 +479,7 @@ export const DOCS: readonly Doc[] = [
   {
     slug: 'guardrails',
     title: 'Guardrails',
-    summary: 'The seventeen rules, what each blocks, and how to add one.',
+    summary: 'The sixteen rules, what each blocks, and how to add one.',
     icon: 'bi-shield-check',
     group: 'Safety',
     readMinutes: 6,
@@ -502,7 +507,6 @@ export const DOCS: readonly Doc[] = [
             ['VAL_REQUIRED_FIELDS', 'BLOCK', 'A required payload field that is missing'],
             ['VAL_DEADLINE_PAST', 'BLOCK', 'A due date in the past'],
             ['VAL_EMAIL_FORMAT', 'BLOCK', 'A malformed recipient address'],
-            ['VAL_OWNER_KNOWN', 'WARN', 'An owner who is not on your roster'],
             ['VAL_BUDGET_APPROVAL', 'BLOCK', 'Money above your limit without sign-off'],
           ],
         },
@@ -577,8 +581,8 @@ export const DOCS: readonly Doc[] = [
             ['Google Calendar', 'CALENDAR', 'OAuth + PKCE', 'Client-supplied event id makes retries safe'],
             ['Notion', 'TASK', 'OAuth', 'Creates a page in your task database'],
             ['Gmail', 'EMAIL', 'OAuth + PKCE', 'Sends as you; can save a draft'],
-            ['SendGrid', 'EMAIL', 'API key', 'Sends as the org; cannot save drafts'],
-            ['Slack', 'REMINDER', 'OAuth', 'chat.scheduleMessage'],
+            ['SendGrid', 'EMAIL', 'API key', 'Coming soon — sends as the org; cannot save drafts'],
+            ['Slack', 'REMINDER', 'OAuth', 'Coming soon — chat.scheduleMessage'],
           ],
         },
       },

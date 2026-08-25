@@ -98,6 +98,13 @@ export default function HomePage() {
               >
                 <i className={`bi ${item.icon} text-accent`} aria-hidden />
                 {item.name}
+                {/* A marquee that lists a not-yet-available integration alongside working
+                    ones is a claim, so it says which is which. */}
+                {'soon' in item && item.soon && (
+                  <span className="rounded border border-edge/30 px-1 text-[9px] uppercase tracking-wider text-ink-faint">
+                    soon
+                  </span>
+                )}
               </span>
             ))}
           </div>
