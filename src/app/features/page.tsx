@@ -10,7 +10,7 @@ import { LATEST_FEATURES, PILLARS } from '@/lib/content'
 export const metadata: Metadata = {
   title: 'Features',
   description:
-    'Grounded extraction, three risk tiers, seventeen server-side guardrails, five integrations, and an ' +
+    'Grounded extraction, three risk tiers, sixteen server-side guardrails, five integrations, and an ' +
     'append-only audit trail. What ships today and what is next.',
 }
 
@@ -40,7 +40,7 @@ const RISK_TIERS = [
 
 const GUARDRAILS = [
   { group: 'Scheduling', icon: 'bi-clock', rules: ['SCHED_PAST', 'SCHED_WEEKEND', 'SCHED_HOURS', 'SCHED_MAX_DURATION', 'SCHED_CONFLICT', 'SCHED_DND', 'SCHED_BUFFER'] },
-  { group: 'Validation', icon: 'bi-check2-square', rules: ['VAL_REQUIRED_FIELDS', 'VAL_DEADLINE_PAST', 'VAL_EMAIL_FORMAT', 'VAL_OWNER_KNOWN', 'VAL_BUDGET_APPROVAL'] },
+  { group: 'Validation', icon: 'bi-check2-square', rules: ['VAL_REQUIRED_FIELDS', 'VAL_DEADLINE_PAST', 'VAL_EMAIL_FORMAT', 'VAL_BUDGET_APPROVAL'] },
   { group: 'Policy', icon: 'bi-file-earmark-ruled', rules: ['POL_SUPERSEDED', 'POL_EXTERNAL_EMAIL', 'POL_NO_FINANCIAL_AUTOEXEC', 'POL_EXPORT_CONSENT', 'POL_CONTRADICTS_DECISION'] },
 ] as const
 
@@ -167,7 +167,7 @@ export default function FeaturesPage() {
       <Section id="guardrails">
         <SectionHeading
           eyebrow="Guardrails"
-          title="Seventeen rules you can enumerate"
+          title="Sixteen rules you can enumerate"
           blurb="Pure functions, evaluated server-side from the database row. The browser gets to explain them; only the server gets to enforce them."
         />
 

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Vowcraft',
     title: 'Vowcraft — conversations become executed outcomes',
     description:
-      'Grounded action-item extraction, seventeen server-side guardrails, and an append-only audit trail. ' +
+      'Grounded action-item extraction, sixteen server-side guardrails, and an append-only audit trail. ' +
       'The agent proposes; you decide.',
   },
   twitter: { card: 'summary_large_image' },

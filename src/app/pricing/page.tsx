@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const COMPARISON = [
   ['Action-item extraction with source quotes', true, true, true],
-  ['All seventeen guardrails', true, true, true],
+  ['All sixteen guardrails', true, true, true],
   ['Append-only audit trail', true, true, true],
   ['Bring your own provider keys', true, true, true],
   ['Local models — nothing leaves your machine', true, false, true],
